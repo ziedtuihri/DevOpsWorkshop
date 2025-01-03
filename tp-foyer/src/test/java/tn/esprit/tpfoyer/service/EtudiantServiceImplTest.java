@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +38,7 @@ class EtudiantServiceImplTest {
 
     @Test
     void testRetrieveAllEtudiants() {
-        List<Etudiant> etudiants = Arrays.asList(etudiant);
+        List<Etudiant> etudiants = Collections.singletonList(etudiant);
         when(etudiantRepository.findAll()).thenReturn(etudiants);
 
         List<Etudiant> result = etudiantService.retrieveAllEtudiants();
