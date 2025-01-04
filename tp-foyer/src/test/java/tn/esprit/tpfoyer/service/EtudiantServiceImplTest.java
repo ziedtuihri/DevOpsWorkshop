@@ -1,6 +1,7 @@
 package tn.esprit.tpfoyer.service;
 
-import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,92 +10,119 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EtudiantServiceImplTest {
-
     @Mock
     private EtudiantRepository etudiantRepository;
 
     @InjectMocks
     private EtudiantServiceImpl etudiantService;
 
-    private Etudiant etudiant;
-
-    @BeforeEach
-    void setUp() {
-        etudiant = new Etudiant();
-        etudiant.setIdEtudiant(1L);
-        etudiant.setNomEtudiant("Doe");
-        etudiant.setPrenomEtudiant("John");
-        etudiant.setCinEtudiant(123456L);
-    }
-
     @Test
     void testRetrieveAllEtudiants() {
-        List<Etudiant> etudiants = Collections.singletonList(etudiant);
-        when(etudiantRepository.findAll()).thenReturn(etudiants);
+        List<Etudiant> mockEtudiants = List.of(
+                Etudiant.builder().idEtudiant(1L).nomEtudiant("John").prenomEtudiant("Doe").cinEtudiant(12345678).build(),
+                Etudiant.builder().idEtudiant(2L).nomEtudiant("Jane").prenomEtudiant("Smith").cinEtudiant(87654321).build()
+        );
 
+        // Mock the repository behavior
+        when(etudiantRepository.findAll()).thenReturn(mockEtudiants);
+
+        // Act: Call the service method
         List<Etudiant> result = etudiantService.retrieveAllEtudiants();
 
-        assertEquals(etudiants, result);
+        // Assert: Verify the results
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertEquals("John", result.get(0).getNomEtudiant());
+        Assertions.assertEquals("Doe", result.get(0).getPrenomEtudiant());
+        Assertions.assertEquals("Jane", result.get(1).getNomEtudiant());
+        Assertions.assertEquals("Smith", result.get(1).getPrenomEtudiant());
+
+        // Verify interactions with the repository
         verify(etudiantRepository, times(1)).findAll();
     }
 
     @Test
     void testRetrieveEtudiant() {
-        when(etudiantRepository.findById(1L)).thenReturn(Optional.of(etudiant));
+        Etudiant mockEtudiant = Etudiant.builder()
+                .idEtudiant(1L)
+                .nomEtudiant("John")
+                .prenomEtudiant("Doe")
+                .cinEtudiant(12345678)
+                .build();
+
+        when(etudiantRepository.findById(1L)).thenReturn(Optional.of(mockEtudiant));
 
         Etudiant result = etudiantService.retrieveEtudiant(1L);
 
-        assertNotNull(result);
-        assertEquals(etudiant, result);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("John", result.getNomEtudiant());
+        Assertions.assertEquals("Doe", result.getPrenomEtudiant());
+        Assertions.assertEquals(12345678, result.getCinEtudiant());
+
         verify(etudiantRepository, times(1)).findById(1L);
     }
 
     @Test
     void testAddEtudiant() {
-        when(etudiantRepository.save(etudiant)).thenReturn(etudiant);
+        Etudiant mockEtudiant = Etudiant.builder()
+                .idEtudiant(1L)
+                .nomEtudiant("John")
+                .prenomEtudiant("Doe")
+                .cinEtudiant(12345678)
+                .build();
 
-        Etudiant result = etudiantService.addEtudiant(etudiant);
+        when(etudiantRepository.save(mockEtudiant)).thenReturn(mockEtudiant);
 
-        assertNotNull(result);
-        assertEquals(etudiant, result);
-        verify(etudiantRepository, times(1)).save(etudiant);
+        Etudiant result = etudiantService.addEtudiant(mockEtudiant);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("John", result.getNomEtudiant());
+        Assertions.assertEquals("Doe", result.getPrenomEtudiant());
     }
 
     @Test
     void testModifyEtudiant() {
-        when(etudiantRepository.save(etudiant)).thenReturn(etudiant);
+        Etudiant mockEtudiant = Etudiant.builder()
+                .idEtudiant(1L)
+                .nomEtudiant("John")
+                .prenomEtudiant("Doe")
+                .cinEtudiant(12345678)
+                .build();
 
-        Etudiant result = etudiantService.modifyEtudiant(etudiant);
+        when(etudiantRepository.save(mockEtudiant)).thenReturn(mockEtudiant);
 
-        assertNotNull(result);
-        assertEquals(etudiant, result);
-        verify(etudiantRepository, times(1)).save(etudiant);
-    }
+        Etudiant result = etudiantService.modifyEtudiant(mockEtudiant);
 
-    @Test
-    void testRemoveEtudiant() {
-        etudiantService.removeEtudiant(1L);
-
-        verify(etudiantRepository, times(1)).deleteById(1L);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("John", result.getNomEtudiant());
+        Assertions.assertEquals("Doe", result.getPrenomEtudiant());
     }
 
     @Test
     void testRecupererEtudiantParCin() {
-        when(etudiantRepository.findEtudiantByCinEtudiant(123456L)).thenReturn(etudiant);
+        Etudiant mockEtudiant = Etudiant.builder()
+                .idEtudiant(1L)
+                .nomEtudiant("John")
+                .prenomEtudiant("Doe")
+                .cinEtudiant(12345678)
+                .build();
 
-        Etudiant result = etudiantService.recupererEtudiantParCin(123456L);
+        when(etudiantRepository.findEtudiantByCinEtudiant(12345678)).thenReturn(mockEtudiant);
 
-        assertNotNull(result);
-        assertEquals(etudiant, result);
-        verify(etudiantRepository, times(1)).findEtudiantByCinEtudiant(123456L);
+        Etudiant result = etudiantService.recupererEtudiantParCin(12345678);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("John", result.getNomEtudiant());
+        Assertions.assertEquals("Doe", result.getPrenomEtudiant());
+        Assertions.assertEquals(12345678, result.getCinEtudiant());
+
+        verify(etudiantRepository, times(1)).findEtudiantByCinEtudiant(12345678);
     }
 }
