@@ -1,0 +1,103 @@
+# General
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Dependency directories
+**/node_modules/
+**/bower_components/
+
+# Build directories
+build/
+out/
+dist/
+
+# IDE-specific files
+## STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+## IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+## VS Code
+.vscode/
+
+# Spring Boot
+## Spring Boot specific
+**/application.properties
+**/application.yml
+**/application-*.properties
+**/application-*.yml
+
+## Spring Boot logs
+**/logs/
+
+## Spring Boot Actuator
+**/actuator/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# Docker
+docker-compose.yml
+docker-compose.*.yml
+**/Dockerfile
+**/docker-compose/
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Others
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
