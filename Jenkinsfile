@@ -14,7 +14,7 @@ pipeline {
         stage('Clean') {
             steps {
                 echo 'Running Maven clean...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn clean'
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
         stage('Validate') {
             steps {
                 echo 'Running Maven Validate...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn validate'
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Running Maven compile...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn compile'
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Maven Test...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn test'
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo 'Running Maven package...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn package'
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
         stage('Verify') {
             steps {
                 echo 'Running Maven Verify...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn verify'
                 }
             }
@@ -74,7 +74,7 @@ pipeline {
         stage('Install') {
             steps {
                 echo 'Running Maven install...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn install'
                 }
             }
@@ -84,8 +84,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
-                dir('timesheet-devops') {
-                    withSonarQubeEnv('SonarQue_server') {
+                dir('tp-foyer') {
+                    withSonarQubeEnv('SonarQube_server') {
                         sh '''
                             mvn sonar:sonar \
                                 -Dsonar.sources=src/main/java \
@@ -100,7 +100,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Running Maven Deploy...'
-                dir('timesheet-devops') {
+                dir('tp-foyer') {
                     sh 'mvn deploy'
                 }
             }
