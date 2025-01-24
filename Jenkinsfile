@@ -135,6 +135,32 @@ pipeline {
             }
         }     
 
+                stage('Start MySQL Container') {
+                  steps {
+                  dir('tp-foyer') {
+                      sh 'docker-compose up -d'
+                      }
+                  }
+        }
+
+        stage('Check MySQL Health') {
+                  steps {
+                  dir('tp-foyer') {
+                      sh 'docker ps | grep mysqldb'
+                      }
+                  }
+        }
+
 
     }
 }
+
+
+
+
+
+
+
+
+
+
