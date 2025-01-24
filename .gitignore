@@ -68,11 +68,6 @@ gradle/
 gradlew
 gradlew.bat
 
-# Docker
-docker-compose.yml
-docker-compose.*.yml
-**/Dockerfile
-**/docker-compose/
 
 # Environment files
 .env
