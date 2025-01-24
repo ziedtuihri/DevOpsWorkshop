@@ -1,4 +1,12 @@
 pipeline {
+    
+    environment {
+    registry = "ziedth/spring-foyer"
+    registryCredential = 'dockerhub_id'
+    dockerImage = ''
+    }
+
+
     agent any
 
     stages {
@@ -105,5 +113,16 @@ pipeline {
                 }
             }
         }
+        
+        stage('Docker Build') {
+            steps {
+                echo 'Docker Build'
+                dir('tp-foyer') {
+                    sh 'docker build -t ziedth/spring-foyer:1.0.0 .'
+                }
+            }
+        }        
+
+
     }
 }
