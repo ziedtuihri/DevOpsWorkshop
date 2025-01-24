@@ -1,9 +1,8 @@
 pipeline {
     
     environment {
-    registry = "ziedth/spring-foyer"
-    registryCredential = 'dockerhub_id'
-    dockerImage = ''
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_zth_id')
+        APP_NAME = "ziedth/spring-foyer"
     }
 
 
@@ -17,6 +16,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ziedtuihri/DevOpsWorkshop'
             }
         }
+
 
         // Stage 2: Clean (Moved to the beginning)
         stage('Clean') {
@@ -113,15 +113,27 @@ pipeline {
                 }
             }
         }
-        
-        stage('Docker Build') {
+                
+          stage('Docker Build') {
             steps {
                 echo 'Docker Build'
                 dir('tp-foyer') {
-                    sh 'docker build -t ziedth/spring-foyer:1.0.0 .'
+                    sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
                 }
             }
-        }        
+          }  
+
+        stage('login to dockerhub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        
+         stage('push image') {
+            steps {
+                sh 'docker push $APP_NAME:$BUILD_NUMBER'
+            }
+        }     
 
 
     }
