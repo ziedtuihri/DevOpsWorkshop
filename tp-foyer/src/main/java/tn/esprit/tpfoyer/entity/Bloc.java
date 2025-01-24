@@ -25,6 +25,7 @@ public class Bloc {
     String nomBloc;
     long capaciteBloc;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     Foyer foyer;
 
