@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE=tp_foyers
       - MYSQL_USER=myuser
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - db:/var/lib/mysql
     healthcheck:
