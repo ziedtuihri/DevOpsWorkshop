@@ -69,12 +69,6 @@ gradlew
 gradlew.bat
 
 
-# Environment files
-.env
-.env.local
-.env.development
-.env.test
-.env.production
 
 # MacOS
 .DS_Store
