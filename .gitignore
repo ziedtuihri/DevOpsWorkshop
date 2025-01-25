@@ -44,12 +44,7 @@ dist/
 ## VS Code
 .vscode/
 
-# Spring Boot
-## Spring Boot specific
-**/application.properties
-**/application.yml
-**/application-*.properties
-**/application-*.yml
+
 
 ## Spring Boot logs
 **/logs/
